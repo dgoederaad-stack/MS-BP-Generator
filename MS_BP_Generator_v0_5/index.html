@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MS BP Generator v0.5</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div>⚡ <b>MS BP Generator</b></div>
+  <div>Single-Line Reader <b>v0.5</b></div>
+</header>
+
+<main>
+<div class="warn"><b>v0.5 = structuur eerst.</b> De digitale weergave, tabellen en verbindingsoverzichten worden uit één elektrisch datamodel opgebouwd. Onzekere herkenning wordt bewust als <b>controleren</b> gemarkeerd in plaats van gegokt.</div>
+
+<section class="card">
+  <div class="toprow">
+    <div>
+      <h2>Single-line</h2>
+      <p>Foto of PDF inlezen en daarna de herkende structuur controleren.</p>
+    </div>
+    <div class="upload">
+      <input id="file" type="file" accept="image/*,application/pdf">
+      <label class="btn" for="file">📷 Foto / PDF kiezen</label>
+      <button id="demo" class="btn secondary">Voorbeeld</button>
+    </div>
+  </div>
+  <div id="filemsg" class="small"></div>
+</section>
+
+<nav class="tabs">
+  <button class="active" data-tab="reconstruction">Reconstructie</button>
+  <button data-tab="stations">Stations</button>
+  <button data-tab="fields">Velden</button>
+  <button data-tab="cables">Kabelverbindingen</button>
+  <button data-tab="trafos">Trafoverbindingen</button>
+  <button data-tab="model">Model</button>
+</nav>
+
+<section id="reconstruction" class="tab active">
+  <div class="split">
+    <div class="card">
+      <h2>Origineel</h2>
+      <img id="original" class="original" src="assets/voorbeeld_single_line.png">
+      <div id="pdfPlaceholder" class="pdf hidden">PDF geselecteerd. In de echte reader wordt de gekozen pagina hier gerenderd.</div>
+    </div>
+    <div class="card">
+      <div class="toprow">
+        <div><h2>Digitale reconstructie</h2><p class="small">Gegenereerd uit hetzelfde model als de tabellen hieronder.</p></div>
+        <label class="switchline"><input id="showLabels" type="checkbox" checked> labels</label>
+      </div>
+      <div id="diagram" class="diagram"></div>
+    </div>
+  </div>
+</section>
+
+<section id="stations" class="tab">
+  <div class="card"><h2>Stationsoverzicht</h2><div id="stationCards" class="stationcards"></div></div>
+</section>
+
+<section id="fields" class="tab">
+  <div class="card">
+    <div class="toprow"><div><h2>Veldenoverzicht</h2><p class="small">MS en LS bij elkaar.</p></div>
+    <input id="fieldSearch" class="search" placeholder="Zoek station, veld, component..."></div>
+    <div class="tablewrap"><table id="fieldTable"><thead><tr><th>Installatie</th><th>Niveau</th><th>Veld</th><th>Rol</th><th>Componenten</th><th>Uitgangsstand</th><th>Aarding</th><th>Aangesloten op</th><th>Controle</th></tr></thead><tbody></tbody></table></div>
+  </div>
+</section>
+
+<section id="cables" class="tab">
+  <div class="card">
+    <h2>Kabelverbindingen installatie ↔ installatie</h2>
+    <div class="tablewrap"><table id="cableTable"><thead><tr><th>Type</th><th>Van installatie</th><th>Van veld</th><th>Naar installatie</th><th>Naar veld</th><th>Status</th></tr></thead><tbody></tbody></table></div>
+  </div>
+</section>
+
+<section id="trafos" class="tab">
+  <div class="card">
+    <h2>Trafoverbindingen</h2>
+    <div class="tablewrap"><table id="trafoTable"><thead><tr><th>Trafo</th><th>Installatie</th><th>Overzetting</th><th>Vermogen</th><th>MS vanaf</th><th>LS naar</th></tr></thead><tbody></tbody></table></div>
+    <h3>Alle installatie → trafo → installatie verbindingen</h3>
+    <div class="tablewrap"><table id="trafoConnTable"><thead><tr><th>Type</th><th>Van</th><th>Van veld</th><th>Naar</th><th>Naar veld</th><th>Status</th></tr></thead><tbody></tbody></table></div>
+  </div>
+</section>
+
+<section id="model" class="tab">
+  <div class="card">
+    <h2>Elektrisch model</h2>
+    <p>Dit is de kern van de reader. Als dit klopt, kunnen reconstructie en later het bedieningsplan uit dezelfde gecontroleerde bron worden opgebouwd.</p>
+    <pre id="modelText"></pre>
+  </div>
+</section>
+</main>
+<script src="app.js"></script>
+</body></html>

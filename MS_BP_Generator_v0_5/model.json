@@ -1,0 +1,324 @@
+{
+  "version": "0.5",
+  "title": "Voorbeeld single-line",
+  "installations": [
+    {
+      "id": "HSR44123P",
+      "name": "HSR44123P",
+      "voltage": "10/20 kV",
+      "type": "MS-installatie",
+      "fields": [
+        {
+          "id": "HSR-F1",
+          "field": "1",
+          "role": "kabelveld",
+          "state": "Gesloten",
+          "earthing": "Niet geaard",
+          "components": [
+            "Schakelaar"
+          ],
+          "connection": "Onbekend / niet volledig leesbaar"
+        },
+        {
+          "id": "HSR-F2",
+          "field": "2",
+          "role": "kabelveld",
+          "state": "Gesloten",
+          "earthing": "Niet geaard",
+          "components": [
+            "Schakelaar"
+          ],
+          "connection": "Onbekend / niet volledig leesbaar"
+        },
+        {
+          "id": "HSR-F3",
+          "field": "3",
+          "role": "meetveld",
+          "state": "Gesloten",
+          "earthing": "Niet geaard",
+          "components": [
+            "Meettrafo"
+          ],
+          "connection": "Meting / rechts draaiveld"
+        },
+        {
+          "id": "HSR-F4",
+          "field": "4",
+          "role": "kabelveld",
+          "state": "Gesloten",
+          "earthing": "Niet geaard",
+          "components": [
+            "Schakelaar",
+            "Aardingsschakelaar"
+          ],
+          "connection": "T0 veld 1"
+        }
+      ]
+    },
+    {
+      "id": "T0",
+      "name": "T0",
+      "voltage": "24 kV / 0,4 kV",
+      "type": "MS + trafo + LS",
+      "fields": [
+        {
+          "id": "T0-F1",
+          "field": "1",
+          "role": "kabelveld",
+          "state": "Gesloten",
+          "earthing": "Niet geaard",
+          "components": [
+            "Schakelaar",
+            "Scheider"
+          ],
+          "connection": "HSR44123P veld 4"
+        },
+        {
+          "id": "T0-F2",
+          "field": "2",
+          "role": "trafoveld",
+          "state": "Gesloten",
+          "earthing": "Niet geaard",
+          "components": [
+            "Schakelaar",
+            "Vermogensschakelaar",
+            "Aardingsschakelaar"
+          ],
+          "connection": "T0-TR1"
+        },
+        {
+          "id": "T0-F3",
+          "field": "3",
+          "role": "kabelveld",
+          "state": "Gesloten",
+          "earthing": "Niet geaard",
+          "components": [
+            "Schakelaar",
+            "Vermogensschakelaar",
+            "Aardingsschakelaar"
+          ],
+          "connection": "T2 veld 2"
+        }
+      ],
+      "ls_fields": [
+        {
+          "field": "LS-hoofdveld",
+          "role": "hoofdveld",
+          "components": [
+            "LS-schakelaar"
+          ],
+          "connection": "T0-TR1"
+        }
+      ]
+    },
+    {
+      "id": "T2",
+      "name": "T2",
+      "voltage": "24 kV / 0,4 kV",
+      "type": "MS + trafo + LS",
+      "fields": [
+        {
+          "id": "T2-F1",
+          "field": "1",
+          "role": "kabelveld",
+          "state": "Gesloten",
+          "earthing": "Niet geaard",
+          "components": [
+            "Schakelaar",
+            "Aardingsschakelaar"
+          ],
+          "connection": "Onbekend / niet volledig leesbaar"
+        },
+        {
+          "id": "T2-F2",
+          "field": "2",
+          "role": "kabelveld",
+          "state": "Gesloten",
+          "earthing": "Niet geaard",
+          "components": [
+            "Schakelaar",
+            "Aardingsschakelaar"
+          ],
+          "connection": "T0 veld 3"
+        },
+        {
+          "id": "T2-F3",
+          "field": "3",
+          "role": "kabelveld",
+          "state": "Gesloten",
+          "earthing": "Niet geaard",
+          "components": [
+            "Schakelaar",
+            "Aardingsschakelaar"
+          ],
+          "connection": "T1 inkomend veld"
+        },
+        {
+          "id": "T2-F4",
+          "field": "4",
+          "role": "trafoveld",
+          "state": "Gesloten",
+          "earthing": "Niet geaard",
+          "components": [
+            "Schakelaar",
+            "Aardingsschakelaar"
+          ],
+          "connection": "T2-TR1"
+        }
+      ],
+      "ls_fields": [
+        {
+          "field": "LS-zijde",
+          "role": "LS-verdeler",
+          "components": [
+            "LS-rail"
+          ],
+          "connection": "T2-TR1"
+        }
+      ]
+    },
+    {
+      "id": "T1",
+      "name": "T1",
+      "voltage": "24 kV / 0,4 kV",
+      "type": "RMU + trafo + LS",
+      "fields": [
+        {
+          "id": "T1-F1",
+          "field": "inkomend",
+          "role": "kabelveld",
+          "state": "Gesloten",
+          "earthing": "Niet geaard",
+          "components": [
+            "Schakelaar",
+            "Aardingsschakelaar",
+            "Zekeringen"
+          ],
+          "connection": "T2 veld 3"
+        }
+      ],
+      "ls_fields": [
+        {
+          "field": "LS-hoofdveld",
+          "role": "LS-verdeler",
+          "components": [
+            "LS-rail"
+          ],
+          "connection": "T1-TR1"
+        }
+      ]
+    }
+  ],
+  "transformers": [
+    {
+      "id": "T0-TR1",
+      "installation": "T0",
+      "name": "T0 transformator",
+      "ratio": "21/0,4 kV",
+      "rating": "ca. 1600 kVA",
+      "ms_from": "T0 veld 2",
+      "ls_to": "T0 LS-hoofdveld"
+    },
+    {
+      "id": "T2-TR1",
+      "installation": "T2",
+      "name": "T2 transformator",
+      "ratio": "20/0,4 kV",
+      "rating": "onbekend / controleren",
+      "ms_from": "T2 veld 4",
+      "ls_to": "T2 LS-zijde"
+    },
+    {
+      "id": "T1-TR1",
+      "installation": "T1",
+      "name": "T1 transformator",
+      "ratio": "21/0,42 kV",
+      "rating": "onbekend / controleren",
+      "ms_from": "T1 inkomend veld",
+      "ls_to": "T1 LS-hoofdveld"
+    }
+  ],
+  "connections": [
+    {
+      "id": "C1",
+      "kind": "MS-kabel",
+      "from_installation": "HSR44123P",
+      "from_field": "4",
+      "to_installation": "T0",
+      "to_field": "1",
+      "status": "waarschijnlijk"
+    },
+    {
+      "id": "C2",
+      "kind": "MS-kabel",
+      "from_installation": "T0",
+      "from_field": "3",
+      "to_installation": "T2",
+      "to_field": "2",
+      "status": "waarschijnlijk"
+    },
+    {
+      "id": "C3",
+      "kind": "MS-kabel",
+      "from_installation": "T2",
+      "from_field": "3",
+      "to_installation": "T1",
+      "to_field": "inkomend",
+      "status": "waarschijnlijk"
+    },
+    {
+      "id": "C4",
+      "kind": "Trafoverbinding MS",
+      "from_installation": "T0",
+      "from_field": "2",
+      "to_installation": "T0-TR1",
+      "to_field": "MS",
+      "status": "zichtbaar"
+    },
+    {
+      "id": "C5",
+      "kind": "Trafoverbinding LS",
+      "from_installation": "T0-TR1",
+      "from_field": "LS",
+      "to_installation": "T0",
+      "to_field": "LS-hoofdveld",
+      "status": "zichtbaar"
+    },
+    {
+      "id": "C6",
+      "kind": "Trafoverbinding MS",
+      "from_installation": "T2",
+      "from_field": "4",
+      "to_installation": "T2-TR1",
+      "to_field": "MS",
+      "status": "zichtbaar"
+    },
+    {
+      "id": "C7",
+      "kind": "Trafoverbinding LS",
+      "from_installation": "T2-TR1",
+      "from_field": "LS",
+      "to_installation": "T2",
+      "to_field": "LS-zijde",
+      "status": "zichtbaar"
+    },
+    {
+      "id": "C8",
+      "kind": "Trafoverbinding MS",
+      "from_installation": "T1",
+      "from_field": "inkomend",
+      "to_installation": "T1-TR1",
+      "to_field": "MS",
+      "status": "zichtbaar"
+    },
+    {
+      "id": "C9",
+      "kind": "Trafoverbinding LS",
+      "from_installation": "T1-TR1",
+      "from_field": "LS",
+      "to_installation": "T1",
+      "to_field": "LS-hoofdveld",
+      "status": "zichtbaar"
+    }
+  ]
+}
