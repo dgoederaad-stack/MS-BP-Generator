@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MS BP Generator v0.4</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="brand">⚡ <b>MS BP Generator</b></div>
+  <div>Single-Line Reader <b>v0.4</b></div>
+</header>
+<main>
+<div class="warn"><b>Controle vereist.</b> Deze versie toont hoe de reader een volledige digitale kopie moet opbouwen. De reconstructie van het meegeleverde voorbeeld is nog handmatig gemodelleerd; echte automatische Vision-analyse volgt als aparte stap.</div>
+
+<section class="card">
+  <h2>Single-line inlezen</h2>
+  <div class="upload">
+    <input id="file" type="file" accept="image/*,application/pdf">
+    <label for="file" class="btn">📷 Foto / PDF kiezen</label>
+    <button id="demo" class="btn alt">Voorbeeld gebruiken</button>
+  </div>
+  <div id="selected" class="small"></div>
+</section>
+
+<section class="card">
+  <div class="bar">
+    <div>
+      <h2>Controleweergave</h2>
+      <p>Alle stations, velden, verbindingen en schakelcomponenten moeten in de digitale versie terugkomen.</p>
+    </div>
+    <div class="tabs">
+      <button data-view="both" class="active">Beide</button>
+      <button data-view="original">Origineel</button>
+      <button data-view="digital">Nagetekend</button>
+    </div>
+  </div>
+
+  <div id="viewer" class="viewer both">
+    <div class="pane original-pane">
+      <h3>Origineel</h3>
+      <div id="originalBox"><img id="original" src="assets/voorbeeld_single_line.png"></div>
+    </div>
+
+    <div class="pane digital-pane">
+      <h3>Digitale reconstructie</h3>
+      <svg id="singleline" viewBox="0 0 1000 1180" role="img" aria-label="Digitale reconstructie single line">
+        <defs>
+          <style>
+            .wire{stroke:#111;stroke-width:3;fill:none;stroke-linecap:round}
+            .bus{stroke:#111;stroke-width:8;fill:none}
+            .boundary{stroke:#7d8792;stroke-width:2;fill:none;stroke-dasharray:14 10}
+            .contact{fill:#fff;stroke:#111;stroke-width:3}
+            .device{fill:#fff;stroke:#111;stroke-width:3}
+            .txt{font:15px Arial;fill:#111}
+            .tiny{font:12px Arial;fill:#333}
+            .title{font:bold 20px Arial;fill:#111}
+            .stationlabel{font:bold italic 19px Arial;fill:#111}
+            .clickable{cursor:pointer}
+            .clickable:hover>*{stroke:#0b67c2!important;stroke-width:5}
+            .selected>*{stroke:#0b67c2!important}
+          </style>
+        </defs>
+
+        <!-- HSR44123P -->
+        <rect x="35" y="25" width="450" height="300" class="boundary"/>
+        <text x="300" y="52" class="stationlabel">HSR44123P</text>
+        <text x="120" y="78" class="tiny">Eaton SVS 06 10kV / rail</text>
+        <line x1="110" y1="95" x2="285" y2="95" class="bus"/>
+        <path d="M285 95 V145 H340 V95 H430" class="bus"/>
+        <text x="120" y="116" class="tiny">1</text><text x="205" y="116" class="tiny">2</text>
+        <text x="307" y="116" class="tiny">3</text><text x="390" y="116" class="tiny">4</text>
+
+        <g class="clickable" data-name="HSR44123P veld 1 schakelaar" data-type="Schakelaar" data-state="Gesloten">
+          <line x1="130" y1="98" x2="130" y2="125" class="wire"/><circle cx="130" cy="130" r="4" class="contact"/>
+          <line x1="130" y1="130" x2="145" y2="151" class="wire"/><circle cx="150" cy="158" r="4" class="contact"/><line x1="150" y1="162" x2="150" y2="235" class="wire"/>
+        </g>
+        <g class="clickable" data-name="HSR44123P veld 2 schakelaar" data-type="Schakelaar" data-state="Gesloten">
+          <line x1="215" y1="98" x2="215" y2="125" class="wire"/><circle cx="215" cy="130" r="4" class="contact"/>
+          <line x1="215" y1="130" x2="230" y2="151" class="wire"/><circle cx="235" cy="158" r="4" class="contact"/><line x1="235" y1="162" x2="235" y2="235" class="wire"/>
+        </g>
+        <g class="clickable" data-name="HSR44123P meettrafo veld 3" data-type="Meettrafo">
+          <line x1="312" y1="145" x2="312" y2="180" class="wire"/>
+          <circle cx="302" cy="196" r="12" class="device"/><circle cx="322" cy="196" r="12" class="device"/><circle cx="312" cy="212" r="12" class="device"/>
+        </g>
+        <g class="clickable" data-name="HSR44123P veld 4 schakelaar" data-type="Schakelaar" data-state="Gesloten">
+          <line x1="395" y1="98" x2="395" y2="125" class="wire"/><circle cx="395" cy="130" r="4" class="contact"/>
+          <line x1="395" y1="130" x2="410" y2="151" class="wire"/><circle cx="415" cy="158" r="4" class="contact"/><line x1="415" y1="162" x2="415" y2="275" class="wire"/>
+          <line x1="415" y1="170" x2="445" y2="170" class="wire"/><circle cx="445" cy="170" r="4" class="contact"/>
+          <line x1="445" y1="170" x2="460" y2="185" class="wire"/><line x1="460" y1="190" x2="460" y2="205" class="wire"/>
+          <line x1="448" y1="205" x2="472" y2="205" class="wire"/><line x1="452" y1="212" x2="468" y2="212" class="wire"/>
+        </g>
+        <text x="330" y="235" class="tiny">rechts draaiveld</text>
+
+        <!-- T0 / lower left -->
+        <rect x="35" y="345" width="450" height="745" class="boundary"/>
+        <text x="440" y="372" class="stationlabel">T0</text>
+        <text x="90" y="390" class="tiny">MS-installatie / 24 kV rail</text>
+        <line x1="95" y1="410" x2="425" y2="410" class="bus"/>
+        <text x="125" y="430" class="tiny">1</text><text x="235" y="430" class="tiny">2</text><text x="385" y="430" class="tiny">3</text>
+
+        <!-- incoming cable from HSR -->
+        <path d="M415 275 V335 H90 V655 H120" class="wire"/>
+        <g class="clickable" data-name="T0 veld 1 schakelaars" data-type="Schakelveld" data-state="Gesloten">
+          <line x1="140" y1="414" x2="140" y2="450" class="wire"/><circle cx="140" cy="455" r="4" class="contact"/>
+          <line x1="140" y1="455" x2="157" y2="475" class="wire"/><circle cx="160" cy="482" r="4" class="contact"/>
+          <line x1="160" y1="486" x2="160" y2="515" class="wire"/><circle cx="160" cy="520" r="4" class="contact"/>
+          <line x1="160" y1="520" x2="147" y2="542" class="wire"/><circle cx="145" cy="550" r="4" class="contact"/><line x1="145" y1="554" x2="145" y2="655" class="wire"/>
+          <line x1="145" y1="655" x2="120" y2="655" class="wire"/>
+        </g>
+
+        <g class="clickable" data-name="T0 veld 2 VS / scheider / aarding" data-type="Trafo-veld" data-state="Gesloten">
+          <line x1="250" y1="414" x2="250" y2="450" class="wire"/><circle cx="250" cy="455" r="4" class="contact"/>
+          <line x1="250" y1="455" x2="267" y2="475" class="wire"/><circle cx="270" cy="482" r="4" class="contact"/>
+          <line x1="270" y1="486" x2="270" y2="515" class="wire"/>
+          <rect x="260" y="515" width="20" height="14" class="device"/>
+          <text x="292" y="526" class="tiny">VS</text>
+          <line x1="270" y1="529" x2="270" y2="565" class="wire"/>
+          <line x1="270" y1="545" x2="310" y2="545" class="wire"/><circle cx="310" cy="545" r="4" class="contact"/>
+          <line x1="310" y1="545" x2="326" y2="560" class="wire"/><line x1="326" y1="566" x2="326" y2="580" class="wire"/>
+          <line x1="314" y1="580" x2="338" y2="580" class="wire"/><line x1="318" y1="587" x2="334" y2="587" class="wire"/>
+          <line x1="270" y1="565" x2="270" y2="680" class="wire"/>
+        </g>
+
+        <g class="clickable" data-name="T0 veld 3 schakelaars" data-type="Schakelveld" data-state="Gesloten">
+          <line x1="395" y1="414" x2="395" y2="450" class="wire"/><circle cx="395" cy="455" r="4" class="contact"/>
+          <line x1="395" y1="455" x2="412" y2="475" class="wire"/><circle cx="415" cy="482" r="4" class="contact"/>
+          <line x1="415" y1="486" x2="415" y2="515" class="wire"/><rect x="405" y="515" width="20" height="14" class="device"/>
+          <line x1="415" y1="529" x2="415" y2="565" class="wire"/>
+          <line x1="415" y1="545" x2="450" y2="545" class="wire"/><circle cx="450" cy="545" r="4" class="contact"/>
+          <line x1="450" y1="545" x2="465" y2="560" class="wire"/>
+          <line x1="415" y1="565" x2="415" y2="655" class="wire"/>
+        </g>
+        <!-- T0 transformer -->
+        <g class="clickable" data-name="T0 transformator" data-type="Transformator">
+          <circle cx="270" cy="715" r="28" class="device"/><circle cx="270" cy="750" r="28" class="device"/>
+          <path d="M257 707 L270 727 L283 707 Z" class="wire"/>
+          <line x1="270" y1="680" x2="270" y2="687" class="wire"/><line x1="270" y1="778" x2="270" y2="865" class="wire"/>
+          <text x="310" y="725" class="tiny">21/0,4 kV transformator</text><text x="310" y="742" class="tiny">ca. 1600 kVA</text>
+        </g>
+        <g class="clickable" data-name="T0 LS hoofdschakelaar" data-type="LS schakelaar" data-state="Gesloten">
+          <circle cx="270" cy="875" r="4" class="contact"/><line x1="270" y1="875" x2="288" y2="900" class="wire"/><circle cx="292" cy="906" r="4" class="contact"/>
+          <line x1="292" y1="910" x2="292" y2="960" class="wire"/>
+        </g>
+        <line x1="220" y1="960" x2="365" y2="960" class="bus"/>
+        <text x="205" y="990" class="tiny">LS verdeler / laagspanningszijde</text>
+
+        <!-- T2 -->
+        <rect x="530" y="25" width="435" height="520" class="boundary"/>
+        <text x="925" y="52" class="stationlabel">T2</text>
+        <text x="585" y="78" class="tiny">Siemens 8DJH / 24 kV rail</text>
+        <line x1="585" y1="95" x2="920" y2="95" class="bus"/>
+        <!-- four T2 fields -->
+        <g class="clickable" data-name="T2 veld 1" data-type="Schakelveld" data-state="Gesloten">
+          <line x1="610" y1="98" x2="610" y2="135" class="wire"/><rect x="600" y="135" width="20" height="14" class="device"/>
+          <line x1="610" y1="149" x2="610" y2="190" class="wire"/><circle cx="610" cy="195" r="4" class="contact"/>
+          <line x1="610" y1="195" x2="625" y2="215" class="wire"/><circle cx="628" cy="222" r="4" class="contact"/><line x1="628" y1="226" x2="628" y2="315" class="wire"/>
+          <line x1="628" y1="175" x2="585" y2="175" class="wire"/><circle cx="585" cy="175" r="4" class="contact"/><line x1="585" y1="175" x2="570" y2="190" class="wire"/>
+        </g>
+        <g class="clickable" data-name="T2 veld 2" data-type="Schakelveld" data-state="Gesloten">
+          <line x1="710" y1="98" x2="710" y2="135" class="wire"/><rect x="700" y="135" width="20" height="14" class="device"/>
+          <line x1="710" y1="149" x2="710" y2="190" class="wire"/><circle cx="710" cy="195" r="4" class="contact"/>
+          <line x1="710" y1="195" x2="725" y2="215" class="wire"/><circle cx="728" cy="222" r="4" class="contact"/><line x1="728" y1="226" x2="728" y2="315" class="wire"/>
+        </g>
+        <g class="clickable" data-name="T2 veld 3" data-type="Schakelveld" data-state="Gesloten">
+          <line x1="810" y1="98" x2="810" y2="135" class="wire"/><rect x="800" y="135" width="20" height="14" class="device"/>
+          <line x1="810" y1="149" x2="810" y2="190" class="wire"/><circle cx="810" cy="195" r="4" class="contact"/>
+          <line x1="810" y1="195" x2="825" y2="215" class="wire"/><circle cx="828" cy="222" r="4" class="contact"/><line x1="828" y1="226" x2="828" y2="350" class="wire"/>
+        </g>
+        <g class="clickable" data-name="T2 veld 4 + transformator" data-type="Trafo-veld" data-state="Gesloten">
+          <line x1="910" y1="98" x2="910" y2="135" class="wire"/><rect x="900" y="135" width="20" height="14" class="device"/>
+          <line x1="910" y1="149" x2="910" y2="190" class="wire"/><circle cx="910" cy="195" r="4" class="contact"/>
+          <line x1="910" y1="195" x2="925" y2="215" class="wire"/><circle cx="928" cy="222" r="4" class="contact"/><line x1="928" y1="226" x2="928" y2="330" class="wire"/>
+          <circle cx="928" cy="360" r="28" class="device"/><circle cx="928" cy="395" r="28" class="device"/>
+          <path d="M915 352 L928 372 L941 352 Z" class="wire"/>
+          <text x="815" y="445" class="tiny">20/0,4 kV transformator</text>
+        </g>
+        <!-- cable link T2 -> T0 field 3 -->
+        <path d="M728 315 V335 H510 V655 H415" class="wire"/>
+        <!-- cable to T1 -->
+        <line x1="828" y1="350" x2="828" y2="600" class="wire"/>
+        <rect x="818" y="585" width="20" height="42" fill="#111"/>
+        <text x="720" y="605" class="tiny">te maken verbinding</text>
+        <!-- T2 LS area -->
+        <rect x="735" y="455" width="230" height="90" class="boundary"/>
+        <line x1="855" y1="505" x2="940" y2="505" class="bus"/>
+
+        <!-- T1 -->
+        <rect x="670" y="650" width="270" height="500" class="boundary"/>
+        <text x="885" y="680" class="stationlabel">T1</text>
+        <text x="800" y="705" class="tiny">RMU / schakelinstallatie</text>
+        <line x1="828" y1="627" x2="828" y2="735" class="wire"/>
+        <g class="clickable" data-name="T1 inkomend schakelveld" data-type="Schakelveld" data-state="Gesloten">
+          <circle cx="828" cy="745" r="4" class="contact"/><line x1="828" y1="745" x2="845" y2="765" class="wire"/><circle cx="848" cy="772" r="4" class="contact"/>
+          <line x1="848" y1="776" x2="848" y2="820" class="wire"/><line x1="848" y1="795" x2="890" y2="795" class="wire"/>
+          <circle cx="890" cy="795" r="4" class="contact"/><line x1="890" y1="795" x2="905" y2="810" class="wire"/>
+        </g>
+        <g class="clickable" data-name="T1 smeltzekeringen" data-type="Zekeringen">
+          <rect x="838" y="820" width="20" height="22" class="device"/><rect x="838" y="846" width="20" height="22" class="device"/><rect x="838" y="872" width="20" height="22" class="device"/>
+        </g>
+        <line x1="848" y1="894" x2="848" y2="940" class="wire"/>
+        <g class="clickable" data-name="T1 transformator" data-type="Transformator">
+          <circle cx="848" cy="970" r="28" class="device"/><circle cx="848" cy="1005" r="28" class="device"/>
+          <path d="M835 962 L848 982 L861 962 Z" class="wire"/>
+          <text x="880" y="982" class="tiny">21/0,42 kV transformator</text>
+        </g>
+        <line x1="848" y1="1033" x2="848" y2="1090" class="wire"/>
+        <circle cx="848" cy="1098" r="4" class="contact"/>
+        <line x1="760" y1="1120" x2="915" y2="1120" class="bus"/>
+        <text x="765" y="1143" class="tiny">400/230 V LS-verdeler</text>
+      </svg>
+      <div id="componentInfo" class="component-info"><b>Tik op een component</b><br>Dan zie je type en uitgangsstand.</div>
+    </div>
+  </div>
+</section>
+
+<section class="card">
+<h2>Herkenningscontrole</h2>
+<div class="stats">
+  <div><b>4</b><span>stations / installatieblokken</span></div>
+  <div><b>11+</b><span>schakelvelden</span></div>
+  <div><b>3</b><span>transformatoren</span></div>
+  <div><b>meerdere</b><span>aardingsschakelaars / verbindingen</span></div>
+</div>
+<p class="small">Voor productie wordt dit register automatisch uit de foto/PDF opgebouwd. Een component mag pas als gecontroleerd gelden nadat het symbool én de elektrische verbinding overeenkomen met het origineel.</p>
+</section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

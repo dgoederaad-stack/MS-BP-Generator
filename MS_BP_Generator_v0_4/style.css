@@ -1,0 +1,16 @@
+
+:root{--blue:#073b84;--blue2:#0b5eb7;--line:#cbd6e3;--bg:#f4f7fb;--txt:#192a3c}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);font-family:Arial,sans-serif;color:var(--txt)}
+header{background:linear-gradient(90deg,var(--blue),var(--blue2));color:white;padding:15px 22px;display:flex;justify-content:space-between;font-size:17px}
+main{max-width:1550px;margin:auto;padding:16px}.warn{background:#fff1d5;border-left:5px solid #d38a00;padding:12px;border-radius:8px;margin-bottom:12px}
+.card{background:white;border:1px solid #dce5ef;border-radius:12px;padding:16px;margin:12px 0;box-shadow:0 5px 18px #18324a10}
+h2{margin-top:0}.upload{display:flex;gap:10px;flex-wrap:wrap}input[type=file]{display:none}
+.btn,.tabs button{border:0;background:var(--blue2);color:#fff;padding:10px 13px;border-radius:8px;font-weight:bold;cursor:pointer}.btn.alt,.tabs button{background:#e8f0fa;color:#244769}
+.bar{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}.tabs{display:flex;gap:6px}.tabs button.active{background:var(--blue);color:#fff}
+.viewer{display:grid;gap:14px}.viewer.both{grid-template-columns:1fr 1fr}.viewer.original{grid-template-columns:1fr}.viewer.original .digital-pane{display:none}.viewer.digital{grid-template-columns:1fr}.viewer.digital .original-pane{display:none}
+.pane{min-width:0}.pane>div,.pane>svg{border:1px solid var(--line);background:white}
+#original{width:100%;height:auto;display:block;max-height:1120px;object-fit:contain}
+#singleline{width:100%;height:auto;max-height:1120px}
+.component-info{margin-top:9px;padding:10px;border-radius:8px;background:#edf5ff;border:1px solid #c9ddf5}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stats div{padding:14px;background:#f4f7fb;border-radius:9px;text-align:center}.stats b{display:block;font-size:25px;color:var(--blue)}.stats span,.small{font-size:12px;color:#667487}
+@media(max-width:900px){.viewer.both{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.bar{display:block}.tabs{margin-bottom:10px}}
