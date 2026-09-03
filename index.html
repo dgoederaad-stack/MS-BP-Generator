@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MS BP Generator</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+</head>
+<body>
+  <p>MS BP Generator v0.3 wordt geopend…</p>
+  <script>
+    (async () => {
+      try {
+        if ('serviceWorker' in navigator) {
+          const regs = await navigator.serviceWorker.getRegistrations();
+          for (const reg of regs) {
+            await reg.unregister();
+          }
+        }
+        if ('caches' in window) {
+          const keys = await caches.keys();
+          await Promise.all(keys.map(k => caches.delete(k)));
+        }
+      } catch (e) {
+        console.log('Opschonen service worker/cache:', e);
+      }
+      window.location.replace('./MS_BP_Generator_v0_3/?v=03');
+    })();
+  </script>
+  <p><a href="./MS_BP_Generator_v0_3/?v=03">Klik hier als je niet automatisch wordt doorgestuurd.</a></p>
+</body>
+</html>
