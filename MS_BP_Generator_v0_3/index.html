@@ -1,0 +1,18 @@
+<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MS BP Generator</title><link rel="stylesheet" href="style.css"></head><body>
+<header>⚡ <b>MS BP Generator</b><span>Single-Line Reader v0.3</span></header><main>
+<div class="warn"><b>Controle vereist.</b> De reconstructie is een concept. Controleer componenten, verbindingen en standen met het origineel.</div>
+<div class="steps">1. Inlezen → 2. Nagetekend → 3. Standen → 4. Controle</div>
+<section><h2>Single-line inlezen</h2><p>Kies een foto, afbeelding of PDF.</p><input id="f" type="file" accept="image/*,application/pdf"><button onclick="demo()">Voorbeeld gebruiken</button><div id="preview"></div><button id="next" class="hide" onclick="showReader()">Analyseren →</button></section>
+<section id="reader" class="hide"><h2>Nagetekende single-line</h2><div class="cols"><div><h3>Origineel</h3><img src="assets/voorbeeld_single_line.png"></div><div><h3>Reconstructie</h3>
+<svg viewBox="0 0 600 520"><text x="300" y="28" text-anchor="middle">T0 — 20 kV / 0,4 kV</text><line x1="80" y1="65" x2="520" y2="65" class="rail"/><text x="85" y="52">20 kV rail</text>
+<line x1="300" y1="65" x2="300" y2="110"/><rect x="280" y="110" width="40" height="32"/><text x="335" y="132">VS</text><line x1="300" y1="142" x2="300" y2="185"/>
+<circle cx="300" cy="190" r="5"/><line id="sw" x1="300" y1="190" x2="300" y2="220"/><circle cx="300" cy="225" r="5"/><text x="335" y="210">Scheider</text><line x1="300" y1="230" x2="300" y2="285"/>
+<line x1="300" y1="260" x2="405" y2="260"/><circle cx="405" cy="260" r="5"/><line id="earth" x1="405" y1="260" x2="445" y2="285"/><line x1="445" y1="290" x2="445" y2="310"/><line x1="425" y1="310" x2="465" y2="310"/><line x1="432" y1="318" x2="458" y2="318"/><text x="455" y="280">Aardingsschakelaar</text>
+<line x1="300" y1="285" x2="300" y2="320"/><circle cx="300" cy="345" r="27"/><circle cx="300" cy="380" r="27"/><text x="345" y="365">T0 — Trafo 2500 kVA</text><line x1="300" y1="407" x2="300" y2="455"/><line x1="180" y1="455" x2="420" y2="455" class="rail"/><text x="430" y="460">0,4 kV verdeler</text></svg></div></div>
+<h2>Uitgangsstanden controleren</h2><p>Normaal veld: standaard <b>Gesloten / Niet geaard</b>. Reserveveld: standaard <b>Open / Geaard</b>.</p>
+<table><tr><th>Component</th><th>Veld</th><th>Stand / aarding</th></tr>
+<tr><td>VS</td><td><select onchange="field(this)"><option>Normaal veld</option><option>Reserveveld</option></select></td><td><select class="state"><option>Gesloten</option><option>Open</option></select></td></tr>
+<tr><td>Scheider</td><td><select onchange="field(this)"><option>Normaal veld</option><option>Reserveveld</option></select></td><td><select class="state" onchange="draw()"><option>Gesloten</option><option>Open</option></select></td></tr>
+<tr><td>Aardingsschakelaar</td><td><select onchange="field(this)"><option>Normaal veld</option><option>Reserveveld</option></select></td><td><select class="earth" onchange="draw()"><option>Niet geaard</option><option>Geaard</option></select></td></tr></table>
+<button onclick="confirmSL()">✓ Single-line gecontroleerd</button><div id="ok" class="ok hide">✓ Gecontroleerd. Deze installatie kan straks als basis voor het bedieningsplan worden gebruikt.</div></section>
+</main><script src="app.js"></script></body></html>
